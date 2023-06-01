@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import shop from '../asset/images/shop.svg';
 import { Avatar } from '@mantine/core';
 import img1 from "../asset/images/avatar.png";
+import { useSelector } from 'react-redux';
 
 
 
 function HeaderNav () {
-  
+  const productData = useSelector(state=>state.shop.productData)
   let Links =[
     {name:"HOME",link:"/"},
     {name:"CART",link:"/cart"},
@@ -35,7 +36,7 @@ function HeaderNav () {
     </div>
     <Link to='/cart' className=' right-[76px] md:right-[20px] shopIcon '>
        <img src={shop} alt='shop'/>
-       <p>0</p>
+       <p>{productData.length?productData.length:0}</p>
       </Link>
  <Link to='/login' className=' right-[110px] md:right-[50px] shopIcon '>  <Avatar radius="xl" src={img1}/> </Link>  
     <ul className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${open ? 'top-20 ' :'top-[-490px] px-16'}`}>

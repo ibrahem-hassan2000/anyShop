@@ -6,7 +6,12 @@ import img1 from "../asset/images/img1.jpg";
 import img2 from "../asset/images/img2.jpg";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/shopSlice";
+import { toast } from "react-toastify";
+
 function Home() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Data, setData] = useState([]);
   useEffect(() => {
@@ -55,18 +60,17 @@ function Home() {
         {Data.map((item) => {
           return (
             <div
-              onClick={() =>
+              
+              className="cardProduct"
+              key={item._id}
+            >
+              <div className="boxImg cursor-pointer" onClick={() =>
                 navigate(`/product/${item._id}`, {
                   state: {
                     item: item,
                   },
                 })
-              }
-              to={`/product/${item._id}`}
-              className="cardProduct"
-              key={item._id}
-            >
-              <div className="boxImg">
+              }>
                 <img src={item.image} alt="name" className="headImg" />
                 <p className="sall">SALL</p>
               </div>
@@ -76,7 +80,14 @@ function Home() {
                   <p className="priceBefore"> {item.oldPrice}</p>
                   <p className="priceAfter">{item.price}</p>
                 </div>
-                <button className="btnCard">Add To Cart</button>
+                <button className="btnCard" onClick={()=>dispatch(addToCart({
+                  _id:item._id,
+                  title:item.title,
+                  image:item.image,
+                  price:item.price,
+                  quantity:1,
+                  description:item.description  
+                }))&toast.success(item.title)}>Add To Cart</button>
               </div>
             </div>
           );
