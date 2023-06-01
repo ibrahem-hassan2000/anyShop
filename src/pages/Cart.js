@@ -73,8 +73,6 @@ if(userInfo){
          label='pay in anyshop'
           amount={TotalPrice*100}
           //token={""}
-
-          currency="USD"
           email={userInfo.email}
           
           />
