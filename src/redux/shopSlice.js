@@ -38,11 +38,17 @@ decreamentQuantity:(state ,action)=>{
     if(item){
         item.quantity--
     }
-}
+},
+addUser:(state ,action)=>{
+    state.userInfo = action.payload
+    },
+    removeUser:(state )=>{
+        state.userInfo = null
+        }
  }
 })
 
 // Action creators are generated for each case reducer function
-export const { addToCart,deleteProduct ,reset ,increamentQuantity ,decreamentQuantity} = shopSlice.actions
+export const { addToCart,deleteProduct ,reset ,increamentQuantity ,decreamentQuantity,addUser,removeUser} = shopSlice.actions
 
 export default shopSlice.reducer

@@ -18,6 +18,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaTwitter } from "react-icons/fa";
 import { getAuth, signInWithPopup, GoogleAuthProvider ,signOut} from "firebase/auth";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser} from "../redux/shopSlice";
 function Login(props) {
   const [type, toggle] = useToggle(["login", "register"]);
   const form = useForm({
@@ -36,18 +38,25 @@ function Login(props) {
           : null,
     },
   });
+  const dispatch = useDispatch()
 const auth = getAuth()
 const provider = new GoogleAuthProvider();
 const handelGoogleLogin =(e)=>{
   e.preventDefault();
   signInWithPopup(auth,provider).then((result)=>{
     const user = result.user;
+    dispatch(addUser({
+      _id:user.uid,
+      name:user.displayName,
+      image:user.photoURL,
+      email:user.email
+    }));
     console.log(user);
   }).catch((error)=>{console.log(error);})
 }
 const handelGoogleLogOut=(e)=>{
   e.preventDefault();
-  signOut(auth).then(()=>{toast.success("logOut")}).catch((error)=>console.log(error))
+  signOut(auth).then(()=>{toast.success("logOut");dispatch(removeUser())}).catch((error)=>console.log(error))
 }
   return (
     <div className="max-w-[400px] w-[400px] mx-auto my-16">
