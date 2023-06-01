@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
 
 function HeaderNav () {
   const productData = useSelector(state=>state.shop.productData)
+  const userInfo = useSelector(state=>state.shop.userInfo);
+
   let Links =[
     {name:"HOME",link:"/"},
     {name:"CART",link:"/cart"},
@@ -38,7 +40,7 @@ function HeaderNav () {
        <img src={shop} alt='shop'/>
        <p>{productData.length?productData.length:0}</p>
       </Link>
- <Link to='/login' className=' right-[110px] md:right-[50px] shopIcon '>  <Avatar radius="xl" src={img1}/> </Link>  
+ <Link to='/login' className=' right-[110px] md:right-[50px] shopIcon '>  <Avatar radius="xl" className='block m-auto' src={userInfo? userInfo.image: img1}/> {userInfo&&<h3 className='text-[8px] font-bold'>{userInfo.name}</h3>} </Link>  
     <ul className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${open ? 'top-20 ' :'top-[-490px] px-16'}`}>
       {
         Links.map((link)=>(

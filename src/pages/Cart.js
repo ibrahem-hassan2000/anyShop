@@ -1,15 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CartItem from '../components/CartItem'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { reset } from '../redux/shopSlice'
+import { toast } from 'react-toastify'
+import StripeCheckout from 'react-stripe-checkout'
 
 
 function Cart() {
   const productData = useSelector(state=>state.shop.productData)
-
+  const userInfo = useSelector(state=>state.shop.userInfo);
+const [PayNow ,setPayNow]= useState(false)
   const TotalPrice = productData.reduce((acc, product) => acc + (product.price*product.quantity), 0);
 const dispatch = useDispatch();
+
+const handelCheckOut=()=>{
+if(userInfo){
+  setPayNow(true)
+}else{
+  setPayNow(false)
+
+  toast.error("Please Sign in to Checkout");
+}
+}
+
   return (
     <>
      {
@@ -48,7 +62,24 @@ const dispatch = useDispatch();
         <p>
           Total<span>${TotalPrice}</span>
         </p>
-        <button className='proceed' >Proceed To Checkout</button>
+        <button className='proceed' onClick={handelCheckOut} >Proceed To Checkout</button>
+        {
+          PayNow && 
+         <div className="block mx-auto my-6">
+           <StripeCheckout
+          stripeKey='pk_test_51NEAT1JMrAAjiKZIDhuqcd0mmSr1fS0pgW745jIVO8qk3sYm6pZ3RRoke7UDjEMA5FnrkUZrDDyDC8uapcnFShK100qpdJF1XR'
+          name="hema shop online" 
+          description={`Your Payment Amount is ${TotalPrice}`}
+         label='pay in anyshop'
+          amount={TotalPrice*100}
+          //token={""}
+
+          currency="USD"
+          email={userInfo.email}
+          
+          />
+          </div>
+        }
       </div>
     </div> :<Link to={'/'} className="text-center text-[20px] m-auto text-indigo-600 block h-[100%]  font-semibold"> no item choosed -- go home to shopping</Link>
     }

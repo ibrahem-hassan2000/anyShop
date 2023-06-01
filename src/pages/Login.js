@@ -20,6 +20,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider ,signOut} from "firebase/a
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser} from "../redux/shopSlice";
+import { useNavigate } from "react-router-dom";
 function Login(props) {
   const [type, toggle] = useToggle(["login", "register"]);
   const form = useForm({
@@ -39,6 +40,7 @@ function Login(props) {
     },
   });
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 const auth = getAuth()
 const provider = new GoogleAuthProvider();
 const handelGoogleLogin =(e)=>{
@@ -52,6 +54,9 @@ const handelGoogleLogin =(e)=>{
       email:user.email
     }));
     console.log(user);
+    setTimeout(()=>{
+navigate('/')
+    },1500)
   }).catch((error)=>{console.log(error);})
 }
 const handelGoogleLogOut=(e)=>{
