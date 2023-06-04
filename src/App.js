@@ -5,9 +5,17 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import HeaderNav from "./components/HeaderNav";
 import Product from "./pages/Product";
-import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
+import Login from "./pages/Login";
+
+
+
+
+
+
+
 const Layout = () => {
   return (
     <>
@@ -38,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/product/:id",
         element: <Product />,
+      },
+      {
+        path: "/SignUp",
+        element: <SignUp/>,
       },
       {
         path: "/login",

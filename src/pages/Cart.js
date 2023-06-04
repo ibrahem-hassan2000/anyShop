@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { reset } from '../redux/shopSlice'
 import { toast } from 'react-toastify'
 import StripeCheckout from 'react-stripe-checkout'
-
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 function Cart() {
   const productData = useSelector(state=>state.shop.productData)
@@ -32,12 +32,12 @@ if(userInfo){
         <h1 className="text-[20px] font-300 mb-4">Shopping Cart</h1>
         <div className='items flex flex-col gap-5 min-w-[680px] mb-10'>
           {
-            productData.map(((item)=>
+            productData.map(((item,i)=>
             
-            <>
-            <CartItem key={item._id} productData={item}/>
+           
+            <CartItem key={i} productData={item}/>
 
-            </>
+         
             ))
           }
       <button className="bg-red-600 w-[70px] mx-10 my-4 h-[40px] rounded-[8px] text-white font-medium hover:bg-red-700 duration-300" onClick={()=>dispatch(reset( ))}>Reset</button>
@@ -72,12 +72,34 @@ if(userInfo){
           description={`Your Payment Amount is ${TotalPrice}`}
          label='pay in anyshop'
           amount={TotalPrice*100}
-          //token={""}
+          token={userInfo.token}
           email={userInfo.email}
           
           />
           </div>
         }
+        
+          
+          <PayPalScriptProvider options={{ "client-id": "ARbqukCOaSRbY3O6Zggr2tmcTs1n__V-r5q5DpDDTx1sYaSSPOQ0MdMW78Gpy4M6BXoUzbecN7EHgsy5" }}>
+             <PayPalButtons style={{ layout: "horizontal" }}
+            
+                createOrder={(data, actions) => {
+                    return actions.order
+                        .create({
+                            purchase_units: [
+                                {
+                                    amount: {
+                                        
+                                        value: "20",
+                                    },
+                                },
+                            ],
+                        })
+                       
+                
+                }}/>
+          </PayPalScriptProvider>
+        
       </div>
     </div> :<Link to={'/'} className="text-center text-[20px] m-auto text-indigo-600 block h-[100%]  font-semibold"> no item choosed -- go home to shopping</Link>
     }

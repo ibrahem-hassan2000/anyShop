@@ -76,6 +76,7 @@ function Home() {
               </div>
               <div className="cardBody">
                 <h2 className="titleCard"> {item.title}</h2>
+                <h3 className="text-gray-500">{item.category}</h3>
                 <div className="price">
                   <p className="priceBefore"> {item.oldPrice}</p>
                   <p className="priceAfter">{item.price}</p>
