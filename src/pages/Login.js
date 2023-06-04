@@ -45,6 +45,9 @@ const handelGoogleLogin =(e)=>{
       token:user.accessToken
     }));
     console.log(user);
+    setTimeout(()=>{
+        navigate("/")
+    },1500)
     
   }).catch((error)=>{console.log(error);})
 }
@@ -67,6 +70,9 @@ const handelSignIn = (e)=>{
       email:user.email,
     }));
    console.log(user);
+   setTimeout(()=>{
+    navigate("/")
+   },1500)
     // ...
   })
   .catch((error) => {
