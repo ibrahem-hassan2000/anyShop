@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
   persistReducer,
@@ -8,24 +8,23 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import shopreducer from './shopSlice'
-
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import shopreducer from "./shopSlice";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   version: 1,
   storage,
-}
-const persistedReducer = persistReducer(persistConfig, shopreducer)
+};
+const persistedReducer = persistReducer(persistConfig, shopreducer);
 export const store = configureStore({
-  reducer: {shop:persistedReducer},
+  reducer: { shop: persistedReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-})
-export let persistor = persistStore(store)
+});
+export let persistor = persistStore(store);

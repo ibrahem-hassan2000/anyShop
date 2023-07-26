@@ -1,7 +1,6 @@
 import { Carousel } from "@mantine/carousel";
 import React, { useEffect, useState } from "react";
-import { rem } from "@mantine/core";
-import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
+import { Skeleton, rem } from "@mantine/core";
 import img1 from "../asset/images/img1.jpg";
 import img2 from "../asset/images/img2.jpg";
 import axios from "axios";
@@ -56,44 +55,81 @@ function Home() {
           <img src={img1} alt="images" />
         </Carousel.Slide>
       </Carousel>
-      <div className="grid gap-3 mt-12 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
-        {Data.map((item) => {
-          return (
-            <div
-              
-              className="cardProduct"
-              key={item._id}
-            >
-              <div className="boxImg cursor-pointer" onClick={() =>
-                navigate(`/product/${item._id}`, {
-                  state: {
-                    item: item,
-                  },
-                })
-              }>
-                <img src={item.image} alt="name" className="headImg" />
-                <p className="sall">SALL</p>
-              </div>
-              <div className="cardBody">
-                <h2 className="titleCard"> {item.title}</h2>
-                <h3 className="text-gray-500">{item.category}</h3>
-                <div className="price">
-                  <p className="priceBefore"> {item.oldPrice}</p>
-                  <p className="priceAfter">{item.price}</p>
+      {Data.length ? (
+        <div className="grid gap-3 mt-12 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
+          {Data.map((item) => {
+            return (
+              <div className="cardProduct" key={item._id}>
+                <div
+                  className="boxImg cursor-pointer"
+                  onClick={() =>
+                    navigate(`/product/${item._id}`, {
+                      state: {
+                        item: item,
+                      },
+                    })
+                  }
+                >
+                  <img src={item.image} alt="name" className="headImg" />
+                  <p className="sall">SALL</p>
                 </div>
-                <button className="btnCard" onClick={()=>dispatch(addToCart({
-                  _id:item._id,
-                  title:item.title,
-                  image:item.image,
-                  price:item.price,
-                  quantity:1,
-                  description:item.description  
-                }))&toast.success(item.title)}>Add To Cart</button>
+                <div className="cardBody">
+                  <h2 className="titleCard"> {item.title}</h2>
+                  <h3 className="text-gray-500">{item.category}</h3>
+                  <div className="price">
+                    <p className="priceBefore"> {item.oldPrice}</p>
+                    <p className="priceAfter">{item.price}</p>
+                  </div>
+                  <button
+                    className="btnCard"
+                    onClick={() =>
+                      dispatch(
+                        addToCart({
+                          _id: item._id,
+                          title: item.title,
+                          image: item.image,
+                          price: item.price,
+                          quantity: 1,
+                          description: item.description,
+                        })
+                      ) & toast.success(item.title)
+                    }
+                  >
+                    Add To Cart
+                  </button>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="groubSkelton grid gap-3 mt-12 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
+          <div className="items ">
+            <Skeleton height={120} width="100%" mb="xl" />
+            <Skeleton height={8} width={200} radius="xl" />
+            <Skeleton height={8} width={100} mt={10} radius="xl" />
+            <Skeleton height={8} width={100} mt={10} radius="xl" />
+          </div>
+          <div className="items ">
+            <Skeleton height={120} width="100%" mb="xl" />
+            <Skeleton height={8} width={200} radius="xl" />
+            <Skeleton height={8} width={100} mt={10} radius="xl" />
+            <Skeleton height={8} width={100} mt={10} radius="xl" />
+          </div>
+          <div className="items ">
+            <Skeleton height={120} width="100%" mb="xl" />
+            <Skeleton height={8} width={200} radius="xl" />
+            <Skeleton height={8} width={100} mt={10} radius="xl" />
+            <Skeleton height={8} width={100} mt={10} radius="xl" />
+          </div>
+          <div className="items ">
+            <Skeleton height={120} width="100%" mb="xl" />
+            <Skeleton height={8} width={200} radius="xl" />
+            <Skeleton height={8} width={100} mt={10} radius="xl" />
+            <Skeleton height={8} width={100} mt={10} radius="xl" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

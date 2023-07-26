@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Outlet() {
-  return (
-    <div>Outlet</div>
-  )
+  return <div>Outlet</div>;
 }
 
-export default Outlet
+export default Outlet;

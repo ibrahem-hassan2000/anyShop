@@ -6,15 +6,9 @@ import Cart from "./pages/Cart";
 import HeaderNav from "./components/HeaderNav";
 import Product from "./pages/Product";
 import SignUp from "./pages/SignUp";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/Login";
-
-
-
-
-
-
 
 const Layout = () => {
   return (
@@ -49,11 +43,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/SignUp",
-        element: <SignUp/>,
+        element: <SignUp />,
       },
       {
         path: "/login",
-        element: <Login/>,
+        element: <Login />,
       },
     ],
   },
@@ -67,18 +61,18 @@ function App() {
     <div className="App">
       <RouterProvider router={router} />
       <ToastContainer
-position="top-left"
-autoClose={5000}
-limit={6}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
-/>
+        position="top-left"
+        autoClose={5000}
+        limit={6}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

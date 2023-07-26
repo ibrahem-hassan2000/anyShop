@@ -42,10 +42,10 @@ function SignUp(props) {
           addUser({
             _id: user.uid,
             name: user.displayName,
-            hh:"Gfgfg,",
+            hh: "Gfgfg,",
             image: user.photoURL,
             email: user.email,
-            token:user.accessToken
+            token: user.accessToken,
           })
         );
         console.log(user);
@@ -79,10 +79,10 @@ function SignUp(props) {
           addUser({
             _id: user.uid,
             name: user.displayName,
-            hh:"Gfgfg,",
+            hh: "Gfgfg,",
             image: user.photoURL,
             email: user.email,
-            token:user.accessToken
+            token: user.accessToken,
           })
         );
         setTimeout(() => {
@@ -172,14 +172,21 @@ function SignUp(props) {
             >
               SignUp
             </Button>
-            
           </Group>
           <h4 className="text-[14px] my-1 text-gray-500">
-              {" "}
-              Already have an account?<Link to={"/login"} className="text-blue-600 font-medium">Login</Link>
-            </h4>
-          <Button onClick={handelGoogleLogOut} className="bg-red-500  w-[90px] text-[12px] hover:bg-red-600 duration-300" radius="xl">Sign Out</Button>
-       
+            {" "}
+            Already have an account?
+            <Link to={"/login"} className="text-blue-600 font-medium">
+              Login
+            </Link>
+          </h4>
+          <Button
+            onClick={handelGoogleLogOut}
+            className="bg-red-500  w-[90px] text-[12px] hover:bg-red-600 duration-300"
+            radius="xl"
+          >
+            Sign Out
+          </Button>
         </form>
       </Paper>
     </div>
